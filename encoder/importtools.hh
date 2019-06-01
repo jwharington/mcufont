@@ -5,6 +5,9 @@
 
 namespace mcufont {
 
+// Set numbers and +/- to have fixed width
+void fixedwidth_nums(std::vector<DataFile::glyphentry_t> &glyphtable);
+
 // Find and eliminate any duplicate glyphs by appending their char vectors.
 void eliminate_duplicates(std::vector<DataFile::glyphentry_t> &glyphtable);
 

@@ -166,6 +166,7 @@ std::unique_ptr<DataFile> LoadFreetype(std::istream &file, int size, bool bw)
     }
     
     eliminate_duplicates(glyphtable);
+    fixedwidth_nums(glyphtable);
     crop_glyphs(glyphtable, fontinfo);
     detect_flags(glyphtable, fontinfo);
     

@@ -3,6 +3,41 @@
 
 namespace mcufont {
 
+static bool is_numish(int c)
+{
+    if ((c>= 48) && (c<= 57)) {
+        return true;
+    }
+    if ((c == 43) || (c == 45)) {
+        return true;
+    }
+    return false;
+}
+
+void fixedwidth_nums(std::vector<DataFile::glyphentry_t> &glyphtable)
+{
+    int num_width = 0;
+    for (size_t i = 0; i + 1 < glyphtable.size(); i++)
+    {
+        for (int c : glyphtable.at(i).chars)
+        {
+            if (is_numish(c)) {
+                num_width = std::max(num_width, glyphtable.at(i).width);
+            }
+        }
+    }
+
+    for (size_t i = 0; i + 1 < glyphtable.size(); i++)
+    {
+        for (int c : glyphtable.at(i).chars)
+        {
+            if (is_numish(c)) {
+                glyphtable.at(i).width = num_width;
+            }
+        }
+    }
+}
+
 void eliminate_duplicates(std::vector<DataFile::glyphentry_t> &glyphtable)
 {
     for (size_t i = 0; i + 1 < glyphtable.size(); i++)
@@ -14,7 +49,7 @@ void eliminate_duplicates(std::vector<DataFile::glyphentry_t> &glyphtable)
             {
                 for (int c : glyphtable.at(j).chars)
                     glyphtable.at(i).chars.push_back(c);
-                
+
                 glyphtable.erase(glyphtable.begin() + j);
                 j--;
             }
