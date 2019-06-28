@@ -90,7 +90,7 @@ static status_t cmd_import_ttf(const std::vector<std::string> &args)
     std::string src = args.at(1);
     int size = std::stoi(args.at(2));
     bool bw = (args.size() == 4 && args.at(3) == "bw");
-    std::string dest = strip_extension(src) + std::to_string(size) + (bw ? "" : "") + ".dat";
+    std::string dest = strip_extension(src) + std::to_string(size) + (bw ? "bw" : "") + ".dat";
     std::ifstream infile(src);
     
     if (!infile.good())
